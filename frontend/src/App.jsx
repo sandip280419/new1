@@ -534,7 +534,10 @@ export default function App() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           {/* Upstox Direct Connect Button */}
           <button
-            onClick={() => window.location.href = 'https://api.upstox.com/v2/login/authorization/dialog?response_type=code&client_id=c20aec17-cfad-4b79-9947-f19fc6a8d915&redirect_uri=http://localhost:3000'}
+            onClick={() => {
+              const redirectUri = window.location.origin;
+              window.location.href = `https://api.upstox.com/v2/login/authorization/dialog?response_type=code&client_id=c20aec17-cfad-4b79-9947-f19fc6a8d915&redirect_uri=${redirectUri}`;
+            }}
             className="terminal-btn"
             style={{
               padding: '6px 12px',
