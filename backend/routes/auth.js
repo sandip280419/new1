@@ -18,7 +18,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_trading_key_12345!';
 
 // Automated Upstox OAuth exchange callback API
 router.post('/upstox-callback', async (req, res) => {
-  const { code } = req.body;
+  const { code, redirectUri } = req.body;
   if (!code) return res.status(400).json({ message: "Authorization Code is required" });
 
   const clientId = process.env.UPSTOX_API_KEY;
@@ -33,7 +33,7 @@ router.post('/upstox-callback', async (req, res) => {
     params.append('code', code);
     params.append('client_id', clientId);
     params.append('client_secret', clientSecret);
-    params.append('redirect_uri', 'http://localhost:3000');
+    params.append('redirect_uri', redirectUri || 'http://localhost:3000');
     params.append('grant_type', 'authorization_code');
 
     const response = await axios.post('https://api.upstox.com/v2/login/authorization/token', params, {
