@@ -301,7 +301,7 @@ export default function App() {
       fetch('/api/auth/upstox-callback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code })
+        body: JSON.stringify({ code, redirectUri: window.location.origin })
       })
       .then(res => res.json().then(data => ({ ok: res.ok, data })))
       .then(({ ok, data }) => {
